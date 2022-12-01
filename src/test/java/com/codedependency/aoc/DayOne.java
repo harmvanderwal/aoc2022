@@ -34,8 +34,7 @@ class DayOne {
 
 	private static String fromFile(String file) {
 		try (InputStream is = DayOne.class.getClassLoader().getResourceAsStream(file)) {
-			return new String(is.readAllBytes(),
-					StandardCharsets.UTF_8);
+			return new String(is.readAllBytes(), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
