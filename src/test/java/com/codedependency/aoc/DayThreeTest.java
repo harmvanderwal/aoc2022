@@ -11,7 +11,7 @@ import static com.codedependency.aoc.util.Regexes.NEW_LINE_PATTERN;
 
 class DayThreeTest {
 
-	private static final IllegalArgumentException NO_MATCHING_CHAR_EXCEPTION = new IllegalArgumentException("No matching char");
+	private static final IllegalArgumentException NO_MATCHING_CHAR = new IllegalArgumentException("No matching char");
 
 	@Test
 	void puzzleOne() {
@@ -43,7 +43,7 @@ class DayThreeTest {
 				}
 			}
 		}
-		throw NO_MATCHING_CHAR_EXCEPTION;
+		throw NO_MATCHING_CHAR;
 	}
 
 	private char findMatchingChar(String s) {
@@ -54,7 +54,7 @@ class DayThreeTest {
 				}
 			}
 		}
-		throw NO_MATCHING_CHAR_EXCEPTION;
+		throw NO_MATCHING_CHAR;
 	}
 
 	private int getLetterValue(char c) {
