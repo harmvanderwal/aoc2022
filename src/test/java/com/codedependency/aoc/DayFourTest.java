@@ -15,27 +15,27 @@ class DayFourTest {
 	void puzzleOne() {
 		System.out.println(Arrays.stream(Regexes.NEW_LINE_PATTERN.split(FileUtil.fromFile("day4.txt")))
 				.map(ELVES_SPLITTER_PATTERN::split)
-				.mapToInt(this::countFullyOverlappedGroups)
-				.sum());
+				.filter(this::isFullOverlap)
+				.count());
 	}
 
 	@Test
 	void puzzleTwo() {
 		System.out.println(Arrays.stream(Regexes.NEW_LINE_PATTERN.split(FileUtil.fromFile("day4.txt")))
 				.map(ELVES_SPLITTER_PATTERN::split)
-				.mapToInt(this::countAnyOverlappedGroups)
-				.sum());
+				.filter(this::anyOverlap)
+				.count());
 	}
 
-	private int countAnyOverlappedGroups(String[] elves) {
-		return countOverlap(elves, false);
+	private boolean anyOverlap(String[] elves) {
+		return isOverlap(elves, false);
 	}
 
-	private int countFullyOverlappedGroups(String[] elves) {
-		return countOverlap(elves, true);
+	private boolean isFullOverlap(String[] elves) {
+		return isOverlap(elves, true);
 	}
 
-	private int countOverlap(String[] elves, boolean fullOverlap) {
+	private boolean isOverlap(String[] elves, boolean fullOverlap) {
 		String elf1 = elves[0];
 		int startElf1 = Integer.parseInt(elf1.substring(0, elf1.indexOf('-')));
 		int endElf1 = Integer.parseInt(elf1.substring(elf1.indexOf('-') + 1));
@@ -43,9 +43,9 @@ class DayFourTest {
 		int startElf2 = Integer.parseInt(elf2.substring(0, elf2.indexOf('-')));
 		int endElf2 = Integer.parseInt(elf2.substring(elf2.indexOf('-') + 1));
 		if (fullOverlap) {
-			return isFullOverlap(startElf1, endElf1, startElf2, endElf2) ? 1 : 0;
+			return isFullOverlap(startElf1, endElf1, startElf2, endElf2);
 		}
-		return isAnyOverlap(startElf1,endElf1, startElf2, endElf2) ? 1 : 0;
+		return isAnyOverlap(startElf1,endElf1, startElf2, endElf2);
 	}
 
 	private boolean isAnyOverlap(int startOne, int endOne, int startTwo, int endTwo) {
