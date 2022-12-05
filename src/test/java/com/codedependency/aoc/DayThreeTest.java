@@ -1,16 +1,21 @@
 package com.codedependency.aoc;
 
+import com.codedependency.aoc.util.FileUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.codedependency.aoc.util.Regexes.NEW_LINE_PATTERN;
+
 class DayThreeTest {
+
+	private static final IllegalArgumentException NO_MATCHING_CHAR_EXCEPTION = new IllegalArgumentException("No matching char");
 
 	@Test
 	void puzzleOne() {
-		System.out.println(Arrays.stream(FileUtil.fromFile("day3.txt").split("\\n"))
+		System.out.println(Arrays.stream(NEW_LINE_PATTERN.split(FileUtil.fromFile("day3.txt")))
 				.map(this::findMatchingChar)
 				.mapToInt(this::getLetterValue)
 				.sum());
@@ -18,7 +23,7 @@ class DayThreeTest {
 
 	@Test
 	void puzzleTwo() {
-		String[] elves = FileUtil.fromFile("day3.txt").split("\\n");
+		String[] elves = NEW_LINE_PATTERN.split(FileUtil.fromFile("day3.txt"));
 		List<Character> chars = new ArrayList<>();
 		for (int i = 0; i < elves.length / 3; i++) {
 			chars.add(findBadge(elves[i * 3], elves[i * 3 + 1], elves[i * 3 + 2]));
@@ -38,7 +43,7 @@ class DayThreeTest {
 				}
 			}
 		}
-		throw new IllegalArgumentException("No matching char");
+		throw NO_MATCHING_CHAR_EXCEPTION;
 	}
 
 	private char findMatchingChar(String s) {
@@ -49,7 +54,7 @@ class DayThreeTest {
 				}
 			}
 		}
-		throw new IllegalArgumentException("No matching char");
+		throw NO_MATCHING_CHAR_EXCEPTION;
 	}
 
 	private int getLetterValue(char c) {

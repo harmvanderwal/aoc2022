@@ -1,4 +1,6 @@
-package com.codedependency.aoc;
+package com.codedependency.aoc.util;
+
+import com.codedependency.aoc.DayOneTest;
 
 import java.io.IOException;
 import java.io.InputStream;

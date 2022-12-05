@@ -1,15 +1,18 @@
 package com.codedependency.aoc;
 
+import com.codedependency.aoc.util.FileUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Map;
 
+import static com.codedependency.aoc.util.Regexes.NEW_LINE_PATTERN;
+
 class DayTwoTest {
 
 	@Test
 	void puzzleOne() {
-		System.out.println(Arrays.stream(FileUtil.fromFile("day2.txt").split("\\n"))
+		System.out.println(Arrays.stream(NEW_LINE_PATTERN.split(FileUtil.fromFile("day2.txt")))
 				.mapToInt(Map.of(
 						"B X", 1,
 						"C Y", 2,
@@ -25,7 +28,7 @@ class DayTwoTest {
 
 	@Test
 	void puzzleTwo() {
-		System.out.println(Arrays.stream(FileUtil.fromFile("day2.txt").split("\\n"))
+		System.out.println(Arrays.stream(NEW_LINE_PATTERN.split(FileUtil.fromFile("day2.txt")))
 				.mapToInt(Map.of(
 						"B X", 1,
 						"C X", 2,
