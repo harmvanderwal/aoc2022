@@ -23,11 +23,11 @@ class DayFourTest {
 	void puzzleTwo() {
 		System.out.println(Arrays.stream(Regexes.NEW_LINE_PATTERN.split(FileUtil.fromFile("day4.txt")))
 				.map(ELVES_SPLITTER_PATTERN::split)
-				.filter(this::anyOverlap)
+				.filter(this::isAnyOverlap)
 				.count());
 	}
 
-	private boolean anyOverlap(String[] elves) {
+	private boolean isAnyOverlap(String[] elves) {
 		return isOverlap(elves, false);
 	}
 
