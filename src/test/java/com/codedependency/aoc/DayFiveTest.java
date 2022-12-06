@@ -124,6 +124,7 @@ class DayFiveTest {
 			}
 			printDequeList(dequeList);
 		}
+		System.out.print("Answer: ");
 		for (Deque<Character> characters : dequeList) {
 			System.out.print(characters.peekLast());
 		}
