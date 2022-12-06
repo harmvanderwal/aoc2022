@@ -66,8 +66,8 @@ class DayFiveTest {
 
 	private List<Deque<Character>> generateDeques(String[] strings) {
 		List<Deque<Character>> dequeList = new ArrayList<>();
-		double rows = Math.ceil(Math.ceilDiv(strings[0].length(), 4));
-		for (int i = 0; i < rows; i++) {
+		double listEntries = -Math.floorDiv(-strings[0].length(), 4);
+		for (int i = 0; i < listEntries; i++) {
 			dequeList.add(new ArrayDeque<>());
 		}
 		for (int i = strings.length - 2; i >= 0; i--) {
