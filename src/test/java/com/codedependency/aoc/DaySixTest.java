@@ -18,13 +18,13 @@ class DaySixTest {
 		findMarkerByNumberOfDistinctCharacters(14);
 	}
 
-	private void findMarkerByNumberOfDistinctCharacters(int distinctNoOfChars) {
+	private void findMarkerByNumberOfDistinctCharacters(int noOfDistinctChars) {
 		char[] chars = FileUtil.fromFile("day6.txt").toCharArray();
 		ArrayDeque<Character> characterDeque = new ArrayDeque<>();
 		for(int i = 0; i < chars.length; i++) {
 			characterDeque.offerLast(chars[i]);
-			if (characterDeque.size() == distinctNoOfChars) {
-				if (new HashSet<>(characterDeque).size() == distinctNoOfChars) {
+			if (characterDeque.size() == noOfDistinctChars) {
+				if (new HashSet<>(characterDeque).size() == noOfDistinctChars) {
 					System.out.println("Answer: " + (i + 1));
 					break;
 				}
