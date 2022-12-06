@@ -24,7 +24,6 @@ class DaySixTest {
 		for(int i = 0; i < chars.length; i++) {
 			characterDeque.offerLast(chars[i]);
 			if (characterDeque.size() == distinctNoOfChars) {
-				System.out.println(characterDeque);
 				if (new HashSet<>(characterDeque).size() == distinctNoOfChars) {
 					System.out.println("Answer: " + (i + 1));
 					break;
