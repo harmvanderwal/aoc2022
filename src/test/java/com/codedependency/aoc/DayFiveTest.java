@@ -89,6 +89,14 @@ class DayFiveTest {
 		return dequeList;
 	}
 
+	private void printAnswer(List<Deque<Character>> dequeList) {
+		System.out.print("Answer: ");
+		for (Deque<Character> characters : dequeList) {
+			System.out.print(characters.peekLast());
+		}
+		System.out.print("%n%n");
+	}
+
 	private void printDequeList(List<Deque<Character>> dequeList) {
 		dequeList = cloneDequeList(dequeList);
 		List<String> outputReversed = new ArrayList<>();
@@ -124,11 +132,6 @@ class DayFiveTest {
 			}
 			printDequeList(dequeList);
 		}
-		System.out.print("Answer: ");
-		for (Deque<Character> characters : dequeList) {
-			System.out.print(characters.peekLast());
-		}
-		System.out.println();
-		System.out.println();
+		printAnswer(dequeList);
 	}
 }
