@@ -42,7 +42,7 @@ class DaySevenTest {
 			Directory beforeCommand = curr;
 			Directory parent = curr.parentDirectory;
 			curr = curr.executeCommand(command);
-			if (!curr.equals(beforeCommand) && !curr.equals(parent)) {
+			if (curr != beforeCommand && curr != parent) {
 				directories.add(curr);
 			}
 		}
