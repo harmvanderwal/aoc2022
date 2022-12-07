@@ -34,15 +34,12 @@ class DaySevenTest {
 	}
 
 	private List<Directory> getDirectoriesFromCommands() {
+		Terminal terminal = new Terminal(new Directory(null));
 		List<Directory> directories = new ArrayList<>();
-		directories.add(new Directory(null));
-		Directory curr = directories.get(0);
+		directories.add(terminal.pwd);
 		for (String command : COMMAND_PATTERN.split(fromFile("day7.txt"))) {
-			Directory beforeCommand = curr;
-			Directory parent = curr.parentDirectory;
-			curr = curr.executeCommand(command);
-			if (curr != beforeCommand && curr != parent) {
-				directories.add(curr);
+			if (terminal.isNewPwdAfterCommand(command)) {
+				directories.add(terminal.pwd);
 			}
 		}
 		return directories;
@@ -50,45 +47,55 @@ class DaySevenTest {
 
 	static class Directory {
 
-		private static final Pattern FILE_PATTERN = Pattern.compile("^(\\d+) .*$", Pattern.MULTILINE);
-
 		private final Directory parentDirectory;
 
-		private final List<Directory> subDirectories;
+		private final List<Directory> subDirectories = new ArrayList<>();
 
 		private int folderContentSize = 0;
 
 		public Directory(Directory parentDirectory) {
 			this.parentDirectory = parentDirectory;
-			this.subDirectories = new ArrayList<>();
-		}
-
-		public Directory executeCommand(String command) {
-			if (command.startsWith("$ cd /") && parentDirectory == null) {
-				return this;
-			}
-			if (command.startsWith("$ cd ..")) {
-				return parentDirectory;
-			}
-			if (command.startsWith("$ cd")) {
-				Directory subDirectory = new Directory(this);
-				subDirectories.add(subDirectory);
-				return subDirectory;
-			}
-			if (command.startsWith("$ ls")) {
-				Matcher matcher = FILE_PATTERN.matcher(command);
-				while (matcher.find()) {
-					folderContentSize += Integer.parseInt(matcher.group(1));
-				}
-				return this;
-			}
-			return this;
 		}
 
 		public int getSize() {
 			return folderContentSize + subDirectories.stream()
 					.mapToInt(Directory::getSize)
 					.sum();
+		}
+	}
+
+	static class Terminal {
+
+		private static final Pattern FILE_PATTERN = Pattern.compile("^(\\d+) .*$", Pattern.MULTILINE);
+
+		private Directory pwd;
+
+		public Terminal(Directory pwd) {
+			this.pwd = pwd;
+		}
+
+		public boolean isNewPwdAfterCommand(String command) {
+			if (command.startsWith("$ cd /") && pwd.parentDirectory == null) {
+				return false;
+			}
+			if (command.startsWith("$ cd ..")) {
+				pwd = pwd.parentDirectory;
+				return true;
+			}
+			if (command.startsWith("$ cd")) {
+				Directory subDirectory = new Directory(pwd);
+				pwd.subDirectories.add(subDirectory);
+				pwd = subDirectory;
+				return true;
+			}
+			if (command.startsWith("$ ls")) {
+				Matcher matcher = FILE_PATTERN.matcher(command);
+				while (matcher.find()) {
+					pwd.folderContentSize += Integer.parseInt(matcher.group(1));
+				}
+				return false;
+			}
+			return false;
 		}
 	}
 }
