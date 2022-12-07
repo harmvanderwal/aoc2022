@@ -91,18 +91,5 @@ class DaySevenTest {
 					.mapToInt(Directory::getSize)
 					.sum();
 		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(folderContentSize, parentDirectory, subDirectories);
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) return true;
-			if (o == null || getClass() != o.getClass()) return false;
-			Directory directory = (Directory) o;
-			return Objects.equals(folderContentSize, directory.folderContentSize) && Objects.equals(subDirectories, directory.subDirectories);
-		}
 	}
 }
