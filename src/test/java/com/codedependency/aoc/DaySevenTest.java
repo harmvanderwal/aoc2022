@@ -39,8 +39,10 @@ class DaySevenTest {
 		directories.add(new Directory(null));
 		Directory curr = directories.get(0);
 		for (String command : COMMAND_PATTERN.split(fromFile("day7.txt"))) {
+			Directory beforeCommand = curr;
+			Directory parent = curr.parentDirectory;
 			curr = curr.executeCommand(command);
-			if (!directories.contains(curr)) {
+			if (!curr.equals(beforeCommand) && !curr.equals(parent)) {
 				directories.add(curr);
 			}
 		}
