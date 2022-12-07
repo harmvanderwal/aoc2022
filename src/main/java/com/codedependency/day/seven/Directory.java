@@ -49,10 +49,6 @@ public class Directory {
 				.sum();
 	}
 
-	public List<Directory> getSubDirectories() {
-		return subDirectories;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(folderContentSize, parentDirectory, subDirectories);
