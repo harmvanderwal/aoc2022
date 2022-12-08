@@ -1,51 +1,23 @@
 package com.codedependency.aoc;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.codedependency.aoc.util.FileUtil.fromFile;
 import static com.codedependency.aoc.util.Regexes.NEW_LINE_PATTERN;
-import static org.assertj.core.api.Assertions.assertThat;
 
 class DayEightTest {
 
-	public static Stream<Arguments> args() {
-		return Stream.of(
-				Arguments.of("30373\n" +
-						"25512\n" +
-						"65332\n" +
-						"33549\n" +
-						"35390", 21),
-				Arguments.of(fromFile("day8.txt"), 1796)
-		);
+	@Test
+	void puzzleOne() {
+		System.out.println(countVisibleTrees(getGrid()));
 	}
 
-	public static Stream<Arguments> args2() {
-		return Stream.of(
-				Arguments.of("30373\n" +
-						"25512\n" +
-						"65332\n" +
-						"33549\n" +
-						"35390", 8),
-				Arguments.of(fromFile("day8.txt"), 288120)
-		);
-	}
-
-	@ParameterizedTest
-	@MethodSource("args")
-	void puzzleOne(String input, int expected) {
-		assertThat(countVisibleTrees(getGrid(input))).isEqualTo(expected);
-	}
-
-	@ParameterizedTest
-	@MethodSource("args2")
-	void puzzleTwo(String input, int expected) {
-		assertThat(getLargestViewingDistance(getGrid(input))).isEqualTo(expected);
+	@Test
+	void puzzleTwo() {
+		System.out.println(getLargestViewingDistance(getGrid()));
 	}
 
 	private int countVisibleTrees(char[][] grid) {
@@ -60,8 +32,8 @@ class DayEightTest {
 		return sum;
 	}
 
-	private char[][] getGrid(String input) {
-		List<char[]> list =  Arrays.stream(NEW_LINE_PATTERN.split(input))
+	private char[][] getGrid() {
+		List<char[]> list =  Arrays.stream(NEW_LINE_PATTERN.split(fromFile("day8.txt")))
 				.map(String::toCharArray)
 				.toList();
 		char[][] grid = new char[list.size()][];
